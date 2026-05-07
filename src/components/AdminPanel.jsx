@@ -18,6 +18,7 @@ export default function AdminPanel() {
   const [tests, setTests] = useState([])
   const [results, setResults] = useState([])
   const [editingTest, setEditingTest] = useState(null)
+  const [testCodeFilter, setTestCodeFilter] = useState('')
 
   // Form states
   const [formData, setFormData] = useState({
@@ -362,6 +363,19 @@ export default function AdminPanel() {
         {view === 'results' && (
           <div className="bg-white rounded-lg shadow-lg p-6">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Natijalar</h2>
+            
+            {/* Filter */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Test kodi bo'yicha filter</label>
+              <input
+                type="text"
+                value={testCodeFilter}
+                onChange={(e) => setTestCodeFilter(e.target.value.toUpperCase())}
+                placeholder="Test kodini kiriting (masalan: TEST001)"
+                className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
+            
             {results.length === 0 ? (
               <p className="text-gray-600 text-center py-8">Hozircha natijalar yoʻq</p>
             ) : (
@@ -374,26 +388,32 @@ export default function AdminPanel() {
                       <th className="px-6 py-3 text-center text-sm font-semibold text-gray-700">Baho</th>
                       <th className="px-6 py-3 text-center text-sm font-semibold text-gray-700">Foiz</th>
                       <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Sana</th>
+                      <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Vaqt</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {results.map((result) => (
-                      <tr key={result.id} className="border-b hover:bg-gray-50">
-                        <td className="px-6 py-4 font-semibold text-gray-800">{result.name}</td>
-                        <td className="px-6 py-4 font-mono text-blue-600">{result.testCode}</td>
-                        <td className="px-6 py-4 text-center font-semibold text-gray-700">
-                          {result.correctAnswers}/{result.totalQuestions}
-                        </td>
-                        <td className="px-6 py-4 text-center">
-                          <span className={`font-semibold ${result.percentage >= 60 ? 'text-green-600' : 'text-red-600'}`}>
-                            {result.percentage}%
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-600">
-                          {result.createdAt ? new Date(result.createdAt.seconds * 1000).toLocaleDateString() : "Yo'q"}
-                        </td>
-                      </tr>
-                    ))}
+                    {results
+                      .filter((result) => !testCodeFilter || result.testCode.includes(testCodeFilter))
+                      .map((result) => (
+                        <tr key={result.id} className="border-b hover:bg-gray-50">
+                          <td className="px-6 py-4 font-semibold text-gray-800">{result.name}</td>
+                          <td className="px-6 py-4 font-mono text-blue-600">{result.testCode}</td>
+                          <td className="px-6 py-4 text-center font-semibold text-gray-700">
+                            {result.correctAnswers}/{result.totalQuestions}
+                          </td>
+                          <td className="px-6 py-4 text-center">
+                            <span className={`font-semibold ${result.percentage >= 60 ? 'text-green-600' : 'text-red-600'}`}>
+                              {result.percentage}%
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-600">
+                            {result.createdAt ? new Date(result.createdAt.seconds * 1000).toLocaleDateString() : "Yo'q"}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-600">
+                            {result.createdAt ? new Date(result.createdAt.seconds * 1000).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' }) : "Yo'q"}
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
