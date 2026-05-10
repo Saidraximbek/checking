@@ -12,6 +12,14 @@ export function AppContextProvider({ children }) {
   const [adminUser, setAdminUser] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = window.localStorage.getItem('darkMode')
+    return saved === 'true'
+  })
+
+  React.useEffect(() => {
+    window.localStorage.setItem('darkMode', darkMode)
+  }, [darkMode])
 
   return (
     <AppContext.Provider
@@ -34,6 +42,8 @@ export function AppContextProvider({ children }) {
         setLoading,
         error,
         setError,
+        darkMode,
+        setDarkMode,
       }}
     >
       {children}

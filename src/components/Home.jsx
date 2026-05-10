@@ -47,10 +47,10 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">Javob tekshiruvchi</h1>
-        <p className="text-center text-gray-600 mb-8">Testni boshlash uchun maʼlumotlaringizni kiriting</p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex items-center justify-center p-4 transition-colors duration-300">
+      <div className="bg-white dark:bg-slate-900 dark:border dark:border-slate-700 rounded-3xl shadow-2xl shadow-slate-200 dark:shadow-slate-900/40 p-8 w-full max-w-md transition-colors duration-300">
+        <h1 className="text-3xl font-bold text-center mb-2 text-gray-800 dark:text-slate-100">Javob tekshiruvchi</h1>
+        <p className="text-center text-gray-600 dark:text-slate-300 mb-8">Testni boshlash uchun maʼlumotlaringizni kiriting</p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -62,7 +62,7 @@ export default function Home() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Toʻliq ismingizni kiriting"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 transition"
             />
           </div>
 
@@ -75,14 +75,14 @@ export default function Home() {
               value={testCode}
               onChange={(e) => setTestCode(e.target.value.toUpperCase())}
               placeholder="Test kodini kiriting"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition uppercase"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 transition uppercase"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-semibold py-2 px-4 rounded-xl transition duration-200 shadow-sm hover:shadow-lg"
           >
             {loading ? 'Yuklanmoqda...' : 'Testni boshlash'}
           </button>
@@ -91,11 +91,11 @@ export default function Home() {
         {/* Error message */}
         {/* Handled in Navbar component */}
 
-        <div className="mt-8 pt-8 border-t border-gray-200">
-          <p className="text-sm text-gray-600 text-center">
+        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-slate-700">
+          <p className="text-sm text-gray-600 dark:text-slate-300 text-center">
             <button
               onClick={() => setCurrentPage('admin-login')}
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors duration-200"
             >
               Admin kirish
             </button>

@@ -56,15 +56,15 @@ export default function AnswerForm() {
   const answeredCount = userAnswers.length - unansweredCount
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 p-4 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold mb-2 text-gray-800">{currentTest.title}</h1>
-          <div className="flex justify-between items-center mb-8 pb-6 border-b border-gray-200">
-            <div className="text-sm text-gray-600">
-              Savollar: <span className="font-semibold text-gray-800">{currentTest.totalQuestions}</span>
+        <div className="bg-white dark:bg-slate-900 dark:border dark:border-slate-700 rounded-3xl shadow-2xl shadow-slate-200 dark:shadow-slate-900/40 p-8 transition-colors duration-300">
+          <h1 className="text-3xl font-bold mb-2 text-gray-800 dark:text-slate-100">{currentTest.title}</h1>
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-8 pb-6 border-b border-gray-200 dark:border-slate-700">
+            <div className="text-sm text-gray-600 dark:text-slate-300">
+              Savollar: <span className="font-semibold text-gray-800 dark:text-slate-100">{currentTest.totalQuestions}</span>
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-slate-300">
               Javob berildi: <span className="font-semibold text-green-600">{answeredCount}</span> / {currentTest.totalQuestions}
             </div>
             {unansweredCount > 0 && (
@@ -78,7 +78,7 @@ export default function AnswerForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {userAnswers.map((answer, index) => (
               <div key={index} className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700 mb-2">
+                <label className="text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                   {index + 1}-savol
                 </label>
                 <input
@@ -89,10 +89,10 @@ export default function AnswerForm() {
                   onKeyDown={(e) => handleKeyPress(e, index)}
                   placeholder="A/B/C/D"
                   maxLength="1"
-                  className={`w-full px-4 py-3 text-center text-xl font-bold border-2 rounded-lg outline-none transition ${
+                  className={`w-full px-4 py-3 text-center text-xl font-bold border-2 rounded-2xl outline-none transition ${
                     answer
-                      ? 'border-green-500 bg-green-50 text-green-700'
-                      : 'border-gray-300 bg-gray-50 text-gray-800 focus:border-blue-500 focus:bg-white'
+                      ? 'border-green-500 bg-green-50 text-green-700 dark:bg-emerald-950/30 dark:text-emerald-300'
+                      : 'border-gray-300 bg-gray-50 text-gray-800 focus:border-blue-500 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:bg-slate-700'
                   }`}
                 />
               </div>
@@ -100,17 +100,17 @@ export default function AnswerForm() {
           </div>
 
           {/* Submit Button */}
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <button
               onClick={() => setCurrentPage('home')}
-              className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-4 rounded-lg transition duration-200"
+              className="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-100 font-semibold py-3 px-4 rounded-2xl transition duration-200 shadow-sm"
             >
               Orqaga
             </button>
             <button
               onClick={handleSubmit}
               disabled={unansweredCount > 0}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-4 rounded-lg transition duration-200"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-semibold py-3 px-4 rounded-2xl transition duration-200 shadow-sm"
             >
               {unansweredCount > 0 ? `Hammasini javoblang (${unansweredCount} ta qoldi)` : 'Javoblarni yuborish'}
             </button>
